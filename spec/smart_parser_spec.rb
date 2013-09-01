@@ -8,14 +8,6 @@ describe SMARTParser do
     @stubbed_attributes = Fixtures.attributes_list
   end
 
-
-#  describe "#initialize" do
-#    it "should fill in attributes with passed value" do
-#      @new_one = SMARTParser.new(@stubbed_attributes)
-#      @new_one.attributes.should == @stubbed_attributes
-#    end
-#  end
-
   describe "#parse" do
     it "should parse lines correctly" do
       attributes = SMARTParser.parse_lines(@output)
