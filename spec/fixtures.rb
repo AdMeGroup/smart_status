@@ -22,4 +22,22 @@ module Fixtures
       :load_retry_count => { :id => 223, :threshold_value => 100, :threshold_value_worst => 100, :threshold_level => 0, :type => :old_age,:updated => :always,:raw => 0, :when_failed => '-'}
     }.dup
   end
+
+  def self.prefail_attribute
+    self.prefail_attribute_nonfailing
+  end
+
+  def self.prefail_attribute_nonfailing
+    self.attributes_list[:raw_read_error_rate]
+  end
+
+  def self.prefail_attribute_failing
+    attribute = self.attributes_list[:raw_read_error_rate]
+    attribute[:threshold_value] = 61
+    attribute
+  end
+
+  def self.oldage_attribute
+    self.attributes_list[:start_stop_count]
+  end
 end
