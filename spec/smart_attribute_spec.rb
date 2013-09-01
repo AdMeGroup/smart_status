@@ -8,7 +8,7 @@ describe SMARTAttribute do
       @smart_attribute = SMARTAttribute.new(@attribute)
     end
 
-    it "should create correct object" do
+    it "creates correct object" do
       @smart_attribute.id.should == @attribute[:id]
       @smart_attribute.threshold_value.should == @attribute[:threshold_value]
       @smart_attribute.threshold_value_worst.should == @attribute[:threshold_value_worst]
@@ -24,11 +24,11 @@ describe SMARTAttribute do
     let(:attribute) { SMARTAttribute.new(Fixtures.prefail_attribute) }
     let(:attribute2) { SMARTAttribute.new(Fixtures.prefail_attribute_failing) }
 
-    it "should match the object with same values" do
+    it "matches the object with same values" do
       attribute.should == attribute.dup
     end
 
-    it "should not match the object with other values" do
+    it "does not match the object with other values" do
       attribute.should_not == attribute2
     end
   end
@@ -37,18 +37,18 @@ describe SMARTAttribute do
     let(:attribute) { SMARTAttribute.new(Fixtures.prefail_attribute) }
 
     describe "#value" do
-      it "should return threshold value" do
+      it "returns threshold value" do
         attribute.value.should == attribute.threshold_value
       end
     end
 
     describe "#failure?" do
       subject { attribute.failure? }
-      context "failure" do
+      context "for failing attribute" do
         let(:attribute) { SMARTAttribute.new(Fixtures.prefail_attribute_failing) }
         it { should be_true }
       end
-      context "no failure" do
+      context "for not failing attribute" do
         let(:attribute) { SMARTAttribute.new(Fixtures.prefail_attribute_nonfailing) }
         it { should be_false }
       end
@@ -59,7 +59,7 @@ describe SMARTAttribute do
     let(:attribute) { SMARTAttribute.new(Fixtures.oldage_attribute) }
 
     describe "#value" do
-      it "should return raw value" do
+      it "returns raw value" do
         attribute.value.should == attribute.raw_value
       end
     end

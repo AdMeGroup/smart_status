@@ -9,7 +9,7 @@ describe SMARTParser do
   end
 
   describe "#parse" do
-    it "should parse lines correctly" do
+    it "parses lines correctly" do
       attributes = SMARTParser.parse_lines(@output)
       attributes.each { |k,v| v.should == SMARTAttribute.new(@stubbed_attributes[k]) }
     end
