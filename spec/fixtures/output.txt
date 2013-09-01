@@ -1,0 +1,27 @@
+smartctl 5.43 2012-06-30 r3573 [x86_64-linux-3.8.0-29-generic-tuxonice] (local build)
+Copyright (C) 2002-12 by Bruce Allen, http://smartmontools.sourceforge.net
+
+=== START OF READ SMART DATA SECTION ===
+SMART Attributes Data Structure revision number: 16
+Vendor Specific SMART Attributes with Thresholds:
+ID# ATTRIBUTE_NAME          FLAG     VALUE WORST THRESH TYPE      UPDATED  WHEN_FAILED RAW_VALUE
+  1 Raw_Read_Error_Rate     0x000b   100   100   062    Pre-fail  Always       -       0
+  2 Throughput_Performance  0x0005   100   100   040    Pre-fail  Offline      -       0
+  3 Spin_Up_Time            0x0007   220   220   033    Pre-fail  Always       -       1
+  4 Start_Stop_Count        0x0012   100   100   000    Old_age   Always       -       354
+  5 Reallocated_Sector_Ct   0x0033   100   100   005    Pre-fail  Always       -       0
+  7 Seek_Error_Rate         0x000b   100   100   067    Pre-fail  Always       -       0
+  8 Seek_Time_Performance   0x0005   100   100   040    Pre-fail  Offline      -       0
+  9 Power_On_Hours          0x0012   098   098   000    Old_age   Always       -       1153
+ 10 Spin_Retry_Count        0x0013   100   100   060    Pre-fail  Always       -       0
+ 12 Power_Cycle_Count       0x0032   100   100   000    Old_age   Always       -       352
+191 G-Sense_Error_Rate      0x000a   100   100   000    Old_age   Always       -       0
+192 Power-Off_Retract_Count 0x0032   100   100   000    Old_age   Always       -       35
+193 Load_Cycle_Count        0x0012   100   100   000    Old_age   Always       -       2884
+194 Temperature_Celsius     0x0002   150   150   000    Old_age   Always       -       40 (Min/Max 16/48)
+196 Reallocated_Event_Count 0x0032   100   100   000    Old_age   Always       -       1
+197 Current_Pending_Sector  0x0022   100   100   000    Old_age   Always       -       0
+198 Offline_Uncorrectable   0x0008   100   100   000    Old_age   Offline      -       0
+199 UDMA_CRC_Error_Count    0x000a   200   200   000    Old_age   Always       -       0
+223 Load_Retry_Count        0x000a   100   100   000    Old_age   Always       -       0
+
