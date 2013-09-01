@@ -1,3 +1,5 @@
+require 'smart_attribute'
+
 class SMARTParser
   def self.parse_lines(input)
     lines = input.split("\n")
@@ -18,7 +20,7 @@ class SMARTParser
         :when_failed => when_failed,
         :raw => raw.to_i
       }
-      attributes[name.downcase.gsub(/-/, "_").to_sym] = values
+      attributes[name.downcase.gsub(/-/, "_").to_sym] = SMARTAttribute.new(values)
     end
 
     attributes

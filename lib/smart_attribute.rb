@@ -4,6 +4,18 @@ class SMARTAttribute
 
   alias :raw_value :raw
 
+  FIELDS_LIST=%w{
+    id threshold_value threshold_value_worst threshold_level type updated
+    raw when_failed
+  }
+
+  # Matches if all fields match to passed value
+  def ==(val)
+    ! FIELDS_LIST.find do |field|
+      self.send(field.to_sym) != val.send(field.to_sym)
+    end
+  end
+
   def initialize(values)
     @id = values[:id]
     @threshold_value = values[:threshold_value]
@@ -25,4 +37,5 @@ class SMARTAttribute
   def failure?
     type == :pre_fail && threshold_value <= threshold_level
   end
+
 end

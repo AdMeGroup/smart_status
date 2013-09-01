@@ -1,4 +1,5 @@
 require 'smart_parser'
+require 'smart_attribute'
 require 'fixtures'
 
 describe SMARTParser do
@@ -18,7 +19,7 @@ describe SMARTParser do
   describe "#parse" do
     it "should parse lines correctly" do
       attributes = SMARTParser.parse_lines(@output)
-      attributes.each { |k,v| v.should == @stubbed_attributes[k] }
+      attributes.each { |k,v| v.should == SMARTAttribute.new(@stubbed_attributes[k]) }
     end
   end
 end

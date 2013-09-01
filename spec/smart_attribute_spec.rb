@@ -20,6 +20,19 @@ describe SMARTAttribute do
     end
   end
 
+  context "instantiated object" do
+    let(:attribute) { SMARTAttribute.new(Fixtures.prefail_attribute) }
+    let(:attribute2) { SMARTAttribute.new(Fixtures.prefail_attribute_failing) }
+
+    it "should match the object with same values" do
+      attribute.should == attribute.dup
+    end
+
+    it "should not match the object with other values" do
+      attribute.should_not == attribute2
+    end
+  end
+
   context "prefail attribute" do
     let(:attribute) { SMARTAttribute.new(Fixtures.prefail_attribute) }
 
