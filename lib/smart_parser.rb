@@ -25,4 +25,29 @@ class SMARTParser
 
     attributes
   end
+
+  def initialize(device)
+    Kernel.system("#{sudo} smartctl -h > /dev/null") || raise("Cannot run 'sudo smartctl'")
+    Kernel.system("#{sudo} test -r #{device}") || raise("Device #{device} is not readable")
+    @device = device
+  end
+
+  def process
+    SMARTParser.parse_lines(raw_data)
+  end
+
+  private
+
+  def raw_data
+    result = `#{sudo} smartctl -A #{@device}`
+    if $? !=0
+      raise "Error while getting SMART data for #{@device}"
+    end
+    result
+  end
+
+  # stub to use smartctl without sudo in some future
+  def sudo
+    "sudo"
+  end
 end
