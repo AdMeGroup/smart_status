@@ -1,11 +1,11 @@
-require 'smart_attribute'
+require 'smart_status/attribute'
 require 'fixtures'
 
-describe SMARTAttribute do
+describe SMARTStatus::Attribute do
   describe "#new" do
     before do
       @attribute = Fixtures.oldage_attribute
-      @smart_attribute = SMARTAttribute.new(@attribute)
+      @smart_attribute = SMARTStatus::Attribute.new(@attribute)
     end
 
     it "creates correct object" do
@@ -21,8 +21,8 @@ describe SMARTAttribute do
   end
 
   context "instantiated object" do
-    let(:attribute) { SMARTAttribute.new(Fixtures.prefail_attribute) }
-    let(:attribute2) { SMARTAttribute.new(Fixtures.prefail_attribute_failing) }
+    let(:attribute) { SMARTStatus::Attribute.new(Fixtures.prefail_attribute) }
+    let(:attribute2) { SMARTStatus::Attribute.new(Fixtures.prefail_attribute_failing) }
 
     it "matches the object with same values" do
       attribute.should == attribute.dup
@@ -34,7 +34,7 @@ describe SMARTAttribute do
   end
 
   context "prefail attribute" do
-    let(:attribute) { SMARTAttribute.new(Fixtures.prefail_attribute) }
+    let(:attribute) { SMARTStatus::Attribute.new(Fixtures.prefail_attribute) }
 
     describe "#value" do
       it "returns threshold value" do
@@ -45,18 +45,18 @@ describe SMARTAttribute do
     describe "#failure?" do
       subject { attribute.failure? }
       context "for failing attribute" do
-        let(:attribute) { SMARTAttribute.new(Fixtures.prefail_attribute_failing) }
+        let(:attribute) { SMARTStatus::Attribute.new(Fixtures.prefail_attribute_failing) }
         it { should be_true }
       end
       context "for not failing attribute" do
-        let(:attribute) { SMARTAttribute.new(Fixtures.prefail_attribute_nonfailing) }
+        let(:attribute) { SMARTStatus::Attribute.new(Fixtures.prefail_attribute_nonfailing) }
         it { should be_false }
       end
     end
   end
 
   context "oldage attribute" do
-    let(:attribute) { SMARTAttribute.new(Fixtures.oldage_attribute) }
+    let(:attribute) { SMARTStatus::Attribute.new(Fixtures.oldage_attribute) }
 
     describe "#value" do
       it "returns raw value" do

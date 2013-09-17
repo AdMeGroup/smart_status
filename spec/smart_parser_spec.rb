@@ -1,24 +1,24 @@
-require 'smart_parser'
-require 'smart_attribute'
+require 'smart_status/parser'
+require 'smart_status/attribute'
 require 'fixtures'
 
-describe SMARTParser do
+describe SMARTStatus::Parser do
   before do
     @output = File.read("spec/fixtures/output.txt")
     @stubbed_attributes = Fixtures.attributes_list
     @processed_attributes = {}
-    @stubbed_attributes.each { |k,v| @processed_attributes[k]=SMARTAttribute.new(v) }
+    @stubbed_attributes.each { |k,v| @processed_attributes[k]=SMARTStatus::Attribute.new(v) }
   end
 
   describe ".parse" do
     it "parses lines correctly" do
-      attributes = SMARTParser.parse_lines(@output)
+      attributes = SMARTStatus::Parser.parse_lines(@output)
       attributes.should == @processed_attributes
     end
   end
 
   describe "#new" do
-    let(:new_object) { SMARTParser.new("/dev/sda1") }
+    let(:new_object) { SMARTStatus::Parser.new("/dev/sda1") }
     before do
       Kernel.stub(:system).and_return(true)
     end
@@ -47,9 +47,9 @@ describe SMARTParser do
 
   describe "#process" do
     before do
-      Kernel.stub(:system).and_return(true) # for SMARTParser.new
-      SMARTParser.any_instance.stub(:raw_data).and_return(@output)
-      @new_object = SMARTParser.new("/dev/sda1")
+      Kernel.stub(:system).and_return(true) # for SMARTStatus::Parser.new
+      SMARTStatus::Parser.any_instance.stub(:raw_data).and_return(@output)
+      @new_object = SMARTStatus::Parser.new("/dev/sda1")
     end
 
     # FIXME: I could not make stubbing of kernel backticks work

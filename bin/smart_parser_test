@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'pp'
-require 'smart_parser'
+require 'smart_status'
 
 def usage
   puts "Usage: #{File.basename(__FILE__)} drive"
@@ -10,5 +10,5 @@ end
 
 ARGV.count != 1 && usage
 
-parser = SMARTParser.new(ARGV[0])
+parser = SMARTStatus::Parser.new(ARGV[0])
 pp parser.process
