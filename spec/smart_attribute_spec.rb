@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 require 'smart_status/attribute'
 require 'fixtures'
 
