@@ -51,7 +51,7 @@ module SMARTStatus
     attr_writer :prefail_unit
 
     def prefail_unit
-      @prefail_unit ||= "Health%"
+      @prefail_unit ||= "%health"
     end
   end
 end

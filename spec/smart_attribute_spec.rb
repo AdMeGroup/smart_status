@@ -51,7 +51,7 @@ describe SMARTStatus::Attribute do
 
     describe "#unit" do
       it "returns prefail unit" do
-        attribute.unit.should == "Health%"
+        attribute.unit.should == "%health"
       end
     end
 
