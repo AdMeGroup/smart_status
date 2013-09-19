@@ -1,15 +1,16 @@
 
 module SMARTStatus
   class Attribute
-    attr_reader :id, :raw_name, :threshold_value, :threshold_value_worst, :threshold_level
-    attr_reader :type, :updated, :raw, :when_failed
+    FIELDS_LIST=%w{
+      id raw_name threshold_value threshold_value_worst threshold_level
+      type updated raw when_failed
+    }
+
+    FIELDS_LIST.each do |field|
+      attr_reader field.to_sym
+    end
 
     alias :raw_value :raw
-
-    FIELDS_LIST=%w{
-      id raw_name threshold_value threshold_value_worst threshold_level type updated
-      raw when_failed
-    }
 
     # Matches if all fields match to passed value
     def ==(val)
@@ -19,15 +20,9 @@ module SMARTStatus
     end
 
     def initialize(values)
-      @id = values[:id]
-      @raw_name = values[:raw_name]
-      @threshold_value = values[:threshold_value]
-      @threshold_value_worst = values[:threshold_value_worst]
-      @threshold_level = values[:threshold_level]
-      @type = values[:type]
-      @updated = values[:updated]
-      @raw = values[:raw]
-      @when_failed = values[:when_failed]
+      FIELDS_LIST.each do |field|
+        self.instance_variable_set(:"@#{field}", values[field.to_sym])
+      end
     end
 
     def value
