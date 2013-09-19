@@ -38,7 +38,7 @@ module SMARTStatus
 
     def unit
       if type == :pre_fail
-        "Health percent"
+        prefail_unit
       else
         formatted_name.match(/ ([^ ]+)$/)[1]
       end
@@ -48,5 +48,10 @@ module SMARTStatus
       type == :pre_fail && threshold_value <= threshold_level
     end
 
+    attr_writer :prefail_unit
+
+    def prefail_unit
+      @prefail_unit ||= "Health%"
+    end
   end
 end
