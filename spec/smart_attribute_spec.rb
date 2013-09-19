@@ -12,6 +12,7 @@ describe SMARTStatus::Attribute do
 
     it "creates correct object" do
       @smart_attribute.id.should == @attribute[:id]
+      @smart_attribute.raw_name.should == @attribute[:raw_name]
       @smart_attribute.threshold_value.should == @attribute[:threshold_value]
       @smart_attribute.threshold_value_worst.should == @attribute[:threshold_value_worst]
       @smart_attribute.threshold_level.should == @attribute[:threshold_level]
@@ -19,6 +20,10 @@ describe SMARTStatus::Attribute do
       @smart_attribute.updated.should == @attribute[:updated]
       @smart_attribute.raw.should == @attribute[:raw]
       @smart_attribute.when_failed.should == @attribute[:when_failed]
+    end
+
+    it "generates formatted name" do
+      @smart_attribute.formatted_name.should == @attribute[:formatted_name]
     end
   end
 
@@ -44,6 +49,12 @@ describe SMARTStatus::Attribute do
       end
     end
 
+    describe "#item" do
+      it "returns 'Health level'" do
+        attribute.item.should == "Health percent"
+      end
+    end
+
     describe "#failure?" do
       subject { attribute.failure? }
       context "for failing attribute" do
@@ -63,6 +74,12 @@ describe SMARTStatus::Attribute do
     describe "#value" do
       it "returns raw value" do
         attribute.value.should == attribute.raw_value
+      end
+    end
+
+    describe "#item" do
+      it "returns last verb" do
+        attribute.item.should == Fixtures.oldage_attribute[:item]
       end
     end
 

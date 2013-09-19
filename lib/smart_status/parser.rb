@@ -13,6 +13,7 @@ module SMARTStatus
         id, name, flag, value, worst, threshold, type, updated, when_failed, raw = line.split
         values = {
           :id => id.to_i,
+          :raw_name => name,
           :threshold_value => value.to_i,
           :threshold_value_worst => worst.to_i,
           :threshold_level => threshold.to_i,

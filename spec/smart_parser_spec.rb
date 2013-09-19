@@ -15,7 +15,10 @@ describe SMARTStatus::Parser do
   describe ".parse" do
     it "parses lines correctly" do
       attributes = SMARTStatus::Parser.parse_lines(@output)
-      attributes.should == @processed_attributes
+      attributes.each do |attribute,value|
+        value.should == @processed_attributes[attribute]
+      end
+      attributes.count.should == @processed_attributes.count
     end
   end
 
@@ -58,7 +61,11 @@ describe SMARTStatus::Parser do
     it "processes data got from smartctl"
 
     it "returns processed S.M.A.R.T. data" do
-      @new_object.process.should eq(@processed_attributes)
+      attributes = @new_object.process
+      attributes.each do |attribute,value|
+        value.should == @processed_attributes[attribute]
+      end
+      attributes.count.should == @processed_attributes.count
     end
   end
 end

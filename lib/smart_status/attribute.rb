@@ -1,13 +1,13 @@
 
 module SMARTStatus
   class Attribute
-    attr_reader :id, :threshold_value, :threshold_value_worst, :threshold_level
+    attr_reader :id, :raw_name, :threshold_value, :threshold_value_worst, :threshold_level
     attr_reader :type, :updated, :raw, :when_failed
 
     alias :raw_value :raw
 
     FIELDS_LIST=%w{
-      id threshold_value threshold_value_worst threshold_level type updated
+      id raw_name threshold_value threshold_value_worst threshold_level type updated
       raw when_failed
     }
 
@@ -20,6 +20,7 @@ module SMARTStatus
 
     def initialize(values)
       @id = values[:id]
+      @raw_name = values[:raw_name]
       @threshold_value = values[:threshold_value]
       @threshold_value_worst = values[:threshold_value_worst]
       @threshold_level = values[:threshold_level]
@@ -33,6 +34,18 @@ module SMARTStatus
       case type
       when :pre_fail then threshold_value
       when :old_age then raw_value
+      end
+    end
+
+    def formatted_name
+      @formatted_name ||= @raw_name.gsub(/_/,' ').gsub(/Ct$/,'Count')
+    end
+
+    def item
+      if type == :pre_fail
+        "Health percent"
+      else
+        formatted_name.match(/ ([^ ]+)$/)[1]
       end
     end
 
