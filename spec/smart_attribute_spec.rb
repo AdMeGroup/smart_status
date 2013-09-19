@@ -49,9 +49,9 @@ describe SMARTStatus::Attribute do
       end
     end
 
-    describe "#item" do
+    describe "#unit" do
       it "returns 'Health level'" do
-        attribute.item.should == "Health percent"
+        attribute.unit.should == "Health percent"
       end
     end
 
@@ -77,9 +77,9 @@ describe SMARTStatus::Attribute do
       end
     end
 
-    describe "#item" do
+    describe "#unit" do
       it "returns last verb" do
-        attribute.item.should == Fixtures.oldage_attribute[:item]
+        attribute.unit.should == Fixtures.oldage_attribute[:unit]
       end
     end
 

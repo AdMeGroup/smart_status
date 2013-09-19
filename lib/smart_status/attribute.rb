@@ -36,7 +36,7 @@ module SMARTStatus
       @formatted_name ||= @raw_name.gsub(/_/,' ').gsub(/Ct$/,'Count')
     end
 
-    def item
+    def unit
       if type == :pre_fail
         "Health percent"
       else
