@@ -28,8 +28,14 @@ module SMARTStatus
       attributes
     end
 
-    def initialize(device)
-      Kernel.system("#{sudo} smartctl -h > /dev/null") || raise("Cannot run 'sudo smartctl'")
+    attr_reader :options
+
+    def initialize(device, options={})
+      @options = {
+        :smartctl => "/usr/sbin/smartctl"
+      }.merge(options)
+
+      Kernel.system("#{sudo} #{smartctl} -h > /dev/null") || raise("Cannot run 'sudo smartctl'")
       Kernel.system("#{sudo} test -r #{device}") || raise("Device #{device} is not readable")
       @device = device
     end
@@ -41,7 +47,7 @@ module SMARTStatus
     private
 
     def raw_data
-      result = `#{sudo} smartctl -A #{@device}`
+      result = `#{sudo} #{smartctl} -A #{@device}`
       if $? !=0
         raise "Error while getting SMART data for #{@device}"
       end
@@ -51,6 +57,11 @@ module SMARTStatus
     # stub to use smartctl without sudo in some future
     def sudo
       "sudo"
+    end
+
+    # location of smartctl in the file tree
+    def smartctl
+      options[:smartctl]
     end
   end
 end
