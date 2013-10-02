@@ -36,7 +36,7 @@ module SMARTStatus
       }.merge(options)
 
       Kernel.system("#{sudo} #{smartctl} -h > /dev/null") || raise("Cannot run 'sudo smartctl'")
-      Kernel.system("#{sudo} test -r #{device}") || raise("Device #{device} is not readable")
+      Kernel.system("test -b #{device}") || raise("File #{device} is not a device")
       @device = device
     end
 
