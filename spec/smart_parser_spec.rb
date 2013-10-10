@@ -38,13 +38,13 @@ describe SMARTStatus::Parser do
       end
     end
 
-    context "device" do
-      it "is readable" do
-        Kernel.stub(:system).with(/test -r/).and_return(true)
+    context "HDD" do
+      it "is a block device" do
+        Kernel.stub(:system).with(/test -b/).and_return(true)
         expect { new_object }.not_to raise_error
       end
-      it "is not readable" do
-        Kernel.stub(:system).with(/test -r/).and_return(false)
+      it "is not a block device" do
+        Kernel.stub(:system).with(/test -b/).and_return(false)
         expect { new_object }.to raise_error
       end
     end
