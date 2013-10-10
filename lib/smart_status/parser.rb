@@ -6,7 +6,7 @@ module SMARTStatus
       lines = input.split("\n")
 
       lines = lines.map { |s| s.strip.gsub(/[[:blank:]]+/, ' ') } # strip extra spaces
-      lines.select! { |s| s.match /^[[:digit:]]+ / } # strip header lines
+      lines = lines.select { |s| s.match /^[[:digit:]]+ / } # strip header lines
 
       attributes = {}
       lines.each do |line|
