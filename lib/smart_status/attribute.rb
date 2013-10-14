@@ -48,6 +48,12 @@ module SMARTStatus
       type == :pre_fail && threshold_value <= threshold_level
     end
 
+    def old_age?
+      type == :old_age
+    end
+
+    alias :oldage? :old_age?
+
     attr_writer :prefail_unit
 
     def prefail_unit

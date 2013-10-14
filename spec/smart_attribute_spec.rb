@@ -66,6 +66,11 @@ describe SMARTStatus::Attribute do
         it { should be_false }
       end
     end
+
+    describe "#old_age?" do
+      subject { attribute.old_age? }
+      it { should be_false }
+    end
   end
 
   context "oldage attribute" do
@@ -86,6 +91,11 @@ describe SMARTStatus::Attribute do
     describe "#failure?" do
       subject { attribute.failure? }
       it { should be_false }
+    end
+
+    describe "#old_age?" do
+      subject { attribute.old_age? }
+      it { should be_true }
     end
   end
 end
