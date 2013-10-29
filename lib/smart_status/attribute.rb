@@ -41,6 +41,7 @@ module SMARTStatus
         name.gsub!(/Uncorrect$/,'Uncorrectable')
         @formatted_name = name
       end
+      @formatted_name
     end
 
     def unit
