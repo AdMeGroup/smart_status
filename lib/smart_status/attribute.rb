@@ -33,14 +33,26 @@ module SMARTStatus
     end
 
     def formatted_name
-      @formatted_name ||= @raw_name.gsub(/_/,' ').gsub(/Ct$/,'Count')
+      if !@formatted_name
+        name = @raw_name.dup
+        name.gsub!(/_/,' ')
+        name.gsub!(/Ct$/,'Count')
+        name.gsub!(/Cel$/,'Celsius')
+        name.gsub!(/Uncorrect$/,'Uncorrectable')
+        @formatted_name = name
+      end
     end
 
     def unit
       if type == :pre_fail
         prefail_unit
       else
-        formatted_name.match(/ ([^ ]+)$/)[1]
+        unit = formatted_name.downcase.split(' ')[-1]  # extract last word
+        unit.gsub!( /([^u])s$/, '\1') # convert plural to singular (except for words ending in 'us')
+        if unit == 'uncorrectable'
+          unit = 'sector'
+        end
+        unit
       end
     end
 
@@ -52,7 +64,12 @@ module SMARTStatus
       type == :old_age
     end
 
+    def pre_fail?
+      type == :pre_fail
+    end
+
     alias :oldage? :old_age?
+    alias :prefail? :pre_fail?
 
     attr_writer :prefail_unit
 

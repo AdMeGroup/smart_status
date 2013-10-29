@@ -6,24 +6,28 @@ require 'fixtures'
 describe SMARTStatus::Attribute do
   describe "#new" do
     before do
-      @attribute = Fixtures.oldage_attribute
-      @smart_attribute = SMARTStatus::Attribute.new(@attribute)
+      @attributes = Fixtures.attributes_list
+      @smart_attributes = Hash[ @attributes.map { |_, attr| [_, SMARTStatus::Attribute.new(attr)] } ]
     end
 
     it "creates correct object" do
-      @smart_attribute.id.should == @attribute[:id]
-      @smart_attribute.raw_name.should == @attribute[:raw_name]
-      @smart_attribute.threshold_value.should == @attribute[:threshold_value]
-      @smart_attribute.threshold_value_worst.should == @attribute[:threshold_value_worst]
-      @smart_attribute.threshold_level.should == @attribute[:threshold_level]
-      @smart_attribute.type.should == @attribute[:type]
-      @smart_attribute.updated.should == @attribute[:updated]
-      @smart_attribute.raw.should == @attribute[:raw]
-      @smart_attribute.when_failed.should == @attribute[:when_failed]
+      @smart_attributes.each do |name,attr|
+        attr.id.should == @attributes[name][:id]
+        attr.raw_name.should == @attributes[name][:raw_name]
+        attr.threshold_value.should == @attributes[name][:threshold_value]
+        attr.threshold_value_worst.should == @attributes[name][:threshold_value_worst]
+        attr.threshold_level.should == @attributes[name][:threshold_level]
+        attr.type.should == @attributes[name][:type]
+        attr.updated.should == @attributes[name][:updated]
+        attr.raw.should == @attributes[name][:raw]
+        attr.when_failed.should == @attributes[name][:when_failed]
+      end
     end
 
     it "generates formatted name" do
-      @smart_attribute.formatted_name.should == @attribute[:formatted_name]
+      @smart_attributes.each do |name,attr|
+        attr.formatted_name.should == @attributes[name][:formatted_name]
+      end
     end
   end
 
@@ -40,6 +44,7 @@ describe SMARTStatus::Attribute do
     end
   end
 
+  ### Pre-fail attributes behave all the same so testing only single one should be ok
   context "prefail attribute" do
     let(:attribute) { SMARTStatus::Attribute.new(Fixtures.prefail_attribute) }
 
@@ -73,29 +78,40 @@ describe SMARTStatus::Attribute do
     end
   end
 
+  ### Old-age attributes have unit names relying heavily on metric name so we should test them all
   context "oldage attribute" do
-    let(:attribute) { SMARTStatus::Attribute.new(Fixtures.oldage_attribute) }
+    let(:attributes) { Hash[ Fixtures.oldage_attributes.map { |_, attr| [_, SMARTStatus::Attribute.new(attr)] } ] }
 
     describe "#value" do
       it "returns raw value" do
-        attribute.value.should == attribute.raw_value
+        attributes.each do |_, attr|
+          attr.value.should == attr.raw_value
+        end
       end
     end
 
     describe "#unit" do
-      it "returns last verb" do
-        attribute.unit.should == Fixtures.oldage_attribute[:unit]
+      it "correct unit" do
+        attributes.each do |name, attr|
+          attr.unit.should == Fixtures.oldage_attributes[name][:unit]
+        end
       end
     end
 
     describe "#failure?" do
-      subject { attribute.failure? }
-      it { should be_false }
+      it "always returns false" do
+        attributes.each do |_, attr|
+          attr.failure?.should be_false
+        end
+      end
     end
 
     describe "#old_age?" do
-      subject { attribute.old_age? }
-      it { should be_true }
+      it "always returns false" do
+        attributes.each do |_, attr|
+          attr.old_age?.should be_true
+        end
+      end
     end
   end
 end
